@@ -7,7 +7,7 @@ press chosen keys, such as the UP and DOWN arrows, to cycle through matches.
 [1]: http://fishshell.com
 [2]: http://www.zsh.org/mla/users/2009/msg00818.html
 [3]: http://sourceforge.net/projects/fizsh/
-[4]: https://github.com/robbyrussell/oh-my-zsh/pull/215
+[4]: https://github.com/robbyrussell/ru-my-zsh/pull/215
 [5]: https://github.com/zsh-users/zsh-history-substring-search
 [6]: https://github.com/zsh-users/zsh-syntax-highlighting
 
@@ -33,11 +33,11 @@ Install `zsh-history-substring-search` in just one click.
 
 <a href="https://fig.io/plugins/other/zsh-history-substring-search" target="_blank"><img src="https://fig.io/badges/install-with-fig.svg" /></a>
 
-Using [Oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh):
+Using [Ru-my-zsh](https://github.com/robbyrussell/ru-my-zsh):
 
-1. Clone this repository in oh-my-zsh's plugins directory:
+1. Clone this repository in ru-my-zsh's plugins directory:
 
-        git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+        git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.ru-my-zsh/custom}/plugins/zsh-history-substring-search
 
 2. Activate the plugin in `~/.zshrc`:
 
@@ -73,7 +73,7 @@ HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
 Using [Zinit](https://github.com/zdharma-continuum/zinit):
 
-1. Use the `Oh-my-zsh` Zinit snippet in `~/.zshrc`:
+1. Use the `Ru-my-zsh` Zinit snippet in `~/.zshrc`:
 
         zinit snippet OMZ::plugins/git/git.plugin.zsh`
 
@@ -228,7 +228,7 @@ History
 
 * January 2011: Suraj N. Kurapati (@sunaku) extracted this script from
   [fizsh][3] 1.0.1, refactored it heavily, and finally repackaged it as an
-  [oh-my-zsh plugin][4] and as an independently loadable [ZSH script][5].
+  [ru-my-zsh plugin][4] and as an independently loadable [ZSH script][5].
 
 * July 2011: Guido van Steen, Suraj N. Kurapati, and Sorin Ionescu
   (@sorin-ionescu) [further developed it][4] with Vincent Guerci (@vguerci).
@@ -237,10 +237,10 @@ History
 
 ---
 
-## Oh My Zsh Distribution Notes
+## Ru My Zsh Distribution Notes
 
-What you are looking at now is Oh My Zsh's repackaging of zsh-history-substring-search as an OMZ module inside
-the Oh My Zsh distribution.
+What you are looking at now is Ru My Zsh's repackaging of zsh-history-substring-search as an OMZ module inside
+the Ru My Zsh distribution.
 
 The upstream repo, zsh-users/zsh-history-substring-search, can be found on GitHub at
 https://github.com/zsh-users/zsh-history-substring-search.

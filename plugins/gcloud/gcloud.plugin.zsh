@@ -1,5 +1,5 @@
 #####################################################
-# gcloud plugin for oh-my-zsh                       #
+# gcloud plugin for ru-my-zsh                       #
 # Author: Ian Chesal (github.com/ianchesal)         #
 #####################################################
 

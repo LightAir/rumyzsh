@@ -1,8 +1,8 @@
 local _rev="$(git -C $ZSH rev-parse HEAD 2> /dev/null)"
-if [[ $_rev == $(git config --global --get oh-my-zsh.git-commit-alias 2> /dev/null) ]]; then
+if [[ $_rev == $(git config --global --get ru-my-zsh.git-commit-alias 2> /dev/null) ]]; then
   return
 fi
-git config --global oh-my-zsh.git-commit-alias "$_rev"
+git config --global ru-my-zsh.git-commit-alias "$_rev"
 
 local -a _git_commit_aliases
 _git_commit_aliases=(

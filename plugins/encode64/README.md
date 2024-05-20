@@ -23,18 +23,18 @@ plugins=(... encode64)
 - From parameter
 
   ```console
-  $ encode64 "oh-my-zsh"
+  $ encode64 "ru-my-zsh"
   b2gtbXktenNo
-  $ e64 "oh-my-zsh"
+  $ e64 "ru-my-zsh"
   b2gtbXktenNo
   ```
 
 - From piping
 
   ```console
-  $ echo "oh-my-zsh" | encode64
+  $ echo "ru-my-zsh" | encode64
   b2gtbXktenNo==
-  $ echo "oh-my-zsh" | e64
+  $ echo "ru-my-zsh" | e64
   b2gtbXktenNo==
   ```
 
@@ -46,10 +46,10 @@ Encode a file's contents to base64 and save output to text file.
 - From parameter
 
   ```console
-  $ encodefile64 ohmyzsh.icn
-  ohmyzsh.icn's content encoded in base64 and saved as ohmyzsh.icn.txt
-  $ ef64 "oh-my-zsh"
-  ohmyzsh.icn's content encoded in base64 and saved as ohmyzsh.icn.txt
+  $ encodefile64 rumyzsh.icn
+  rumyzsh.icn's content encoded in base64 and saved as rumyzsh.icn.txt
+  $ ef64 "ru-my-zsh"
+  rumyzsh.icn's content encoded in base64 and saved as rumyzsh.icn.txt
   ```
 
 ### Decoding
@@ -58,16 +58,16 @@ Encode a file's contents to base64 and save output to text file.
 
   ```console
   $ decode64 b2gtbXktenNo
-  oh-my-zsh%
+  ru-my-zsh%
   $ d64 b2gtbXktenNo
-  oh-my-zsh%
+  ru-my-zsh%
   ```
 
 - From piping
 
   ```console
   $ echo "b2gtbXktenNoCg==" | decode64
-  oh-my-zsh
+  ru-my-zsh
   $ echo "b2gtbXktenNoCg==" | d64
-  oh-my-zsh
+  ru-my-zsh
   ```

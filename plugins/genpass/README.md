@@ -14,7 +14,7 @@ You can also invoke password generators directly (they are implemented as
 standalone executable files), which can be handy when you need to generate
 passwords in a script:
 
-    ~/.oh-my-zsh/plugins/genpass/genpass-apple 3
+    ~/.ru-my-zsh/plugins/genpass/genpass-apple 3
 
 ## genpass-apple
 
@@ -24,7 +24,7 @@ password has exactly 1 digit placed at the edge of a "word" and exactly 1
 capital letter to satisfy most password security requirements.
 
     % genpass-apple
-    gelcyv-foqtam-fotqoh-viMleb-lexduv-6ixfuk
+    gelcyv-foqtam-fotqru-viMleb-lexduv-6ixfuk
 
     % genpass-apple 3
     japvyz-qyjti4-kajrod-nubxaW-hukkan-dijcaf

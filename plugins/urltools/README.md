@@ -21,9 +21,9 @@ Original idea and aliases: [Ruslan Spivak](https://ruslanspivak.wordpress.com/20
 ## Examples
 
 ```zsh
-urlencode 'https://github.com/ohmyzsh/ohmyzsh/search?q=urltools&type=Code'
-# returns https%3A%2F%2Fgithub.com%2Fohmyzsh%2Fohmyzsh%2Fsearch%3Fq%3Durltools%26type%3DCode
+urlencode 'https://github.com/lightair/rumyzsh/search?q=urltools&type=Code'
+# returns https%3A%2F%2Fgithub.com%2Flightair%2Frumyzsh%2Fsearch%3Fq%3Durltools%26type%3DCode
 
-urldecode 'https%3A%2F%2Fgithub.com%2Fohmyzsh%2Fohmyzsh%2Fsearch%3Fq%3Durltools%26type%3DCode'
-# returns https://github.com/ohmyzsh/ohmyzsh/search?q=urltools&type=Code
+urldecode 'https%3A%2F%2Fgithub.com%2Flightair%2Frumyzsh%2Fsearch%3Fq%3Durltools%26type%3DCode'
+# returns https://github.com/lightair/rumyzsh/search?q=urltools&type=Code
 ```

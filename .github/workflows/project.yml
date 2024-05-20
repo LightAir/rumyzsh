@@ -14,19 +14,19 @@ jobs:
   add-to-project:
     name: Add to project
     runs-on: ubuntu-latest
-    if: github.repository == 'ohmyzsh/ohmyzsh'
+    if: github.repository == 'lightair/rumyzsh'
     steps:
-      - name: Authenticate as @ohmyzsh
+      - name: Authenticate as @rumyzsh
         id: generate_token
-        uses: ohmyzsh/github-app-token@v2
+        uses: rumyzsh/github-app-token@v2
         with:
-          app_id: ${{ secrets.OHMYZSH_APP_ID }}
-          private_key: ${{ secrets.OHMYZSH_APP_PRIVATE_KEY }}
+          app_id: ${{ secrets.RUMYZSH_APP_ID }}
+          private_key: ${{ secrets.RUMYZSH_APP_PRIVATE_KEY }}
       - name: Store app token
         run: echo "GH_TOKEN=${{ steps.generate_token.outputs.token }}" >> "$GITHUB_ENV"
       - name: Read project data
         env:
-          ORGANIZATION: ohmyzsh
+          ORGANIZATION: rumyzsh
           PROJECT_NUMBER: "1"
         run: |
           # Get Project data

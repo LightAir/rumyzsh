@@ -17,7 +17,7 @@ permissions:
 jobs:
   test:
     name: Test installer
-    if: github.repository == 'ohmyzsh/ohmyzsh'
+    if: github.repository == 'lightair/rumyzsh'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -34,7 +34,7 @@ jobs:
         run: sh ./tools/install.sh
 
   deploy:
-    name: Deploy installer in install.ohmyz.sh
+    name: Deploy installer in install.softroot.ru
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: vercel

@@ -1,14 +1,13 @@
-name: Report a bug in Oh My Zsh
-description: Create a report to help us improve Oh My Zsh
+name: Report a bug in Ru My Zsh
+description: Create a report to help us improve Ru My Zsh
 labels: ['Bug']
 body:
   - type: markdown
     attributes:
       value: |
         ## Self Check
-        - **Make sure this bug only happens with Oh My Zsh enabled**.
-        - Look for similar errors in existing [GitHub Issues](https://github.com/ohmyzsh/ohmyzsh/issues?q=is%3Aissue) (open or closed).
-        - Try reaching out on the [Discord server](https://discord.gg/ohmyzsh) for help.
+        - **Make sure this bug only happens with Ru My Zsh enabled**.
+        - Look for similar errors in existing [GitHub Issues](https://github.com/lightair/rumyzsh/issues?q=is%3Aissue) (open or closed).
   - type: textarea
     validations:
       required: true
@@ -55,7 +54,7 @@ body:
     validations:
       required: true
     attributes:
-      label: Oh My Zsh version
+      label: Ru My Zsh version
       description: Run `omz version` to check.
       placeholder: master (bf303965)
   - type: input

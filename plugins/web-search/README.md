@@ -18,8 +18,8 @@ You can use the `web-search` plugin in these two forms:
 For example, these two are equivalent:
 
 ```zsh
-$ web_search google oh-my-zsh
-$ google oh-my-zsh
+$ web_search google ru-my-zsh
+$ google ru-my-zsh
 ```
 
 Available search contexts are:
@@ -64,7 +64,7 @@ Also there are aliases for bang-searching DuckDuckGo:
 ### Custom search engines
 
 If you want to add other search contexts to the plugin, you can use the `$ZSH_WEB_SEARCH_ENGINES` variable.
-Set it before Oh My Zsh is sourced, with the following format:
+Set it before Ru My Zsh is sourced, with the following format:
 
 ```zsh
 ZSH_WEB_SEARCH_ENGINES=(

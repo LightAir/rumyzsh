@@ -1,10 +1,10 @@
 
 ---
 
-## Oh My Zsh Distribution Notes
+## Ru My Zsh Distribution Notes
 
-What you are looking at now is Oh My Zsh's repackaging of zsh-history-substring-search as an OMZ module inside
-the Oh My Zsh distribution.
+What you are looking at now is Ru My Zsh's repackaging of zsh-history-substring-search as an OMZ module inside
+the Ru My Zsh distribution.
 
 The upstream repo, zsh-users/zsh-history-substring-search, can be found on GitHub at
 https://github.com/zsh-users/zsh-history-substring-search.

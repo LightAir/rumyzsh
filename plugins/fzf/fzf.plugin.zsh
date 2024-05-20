@@ -2,7 +2,7 @@ function fzf_setup_using_fzf() {
   (( ${+commands[fzf]} )) || return 1
 
   # we remove "fzf " prefix, this fixes really old fzf versions behaviour
-  # see https://github.com/ohmyzsh/ohmyzsh/issues/12387
+  # see https://github.com/lightair/rumyzsh/issues/12387
   local fzf_ver=${"$(fzf --version)"#fzf }
 
   autoload -Uz is-at-least
@@ -246,7 +246,7 @@ function fzf_setup_using_macports() {
 # Indicate to user that fzf installation not found if nothing worked
 function fzf_setup_error() {
   cat >&2 <<'EOF'
-[oh-my-zsh] fzf plugin: Cannot find fzf installation directory.
+[ru-my-zsh] fzf plugin: Cannot find fzf installation directory.
 Please add `export FZF_BASE=/path/to/fzf/install/dir` to your .zshrc
 EOF
 }

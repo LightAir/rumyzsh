@@ -21,7 +21,7 @@
 # # -Debian/Ubuntu- apt-get install fortune
 # #
 # # optionally:
-# # -Oh-myzsh vcs plug-ins git and svn.
+# # -Ru-myzsh vcs plug-ins git and svn.
 # # -Solarized theme (https://github.com/altercation/solarized/)
 # # -OS X: iTerm 2 (https://iterm2.com/)
 # # -font Source code pro (https://github.com/adobe/source-code-pro)

@@ -4,11 +4,11 @@ function zsh_stats() {
     | grep -v "./" | sort -nr | head -n 20 | column -c3 -s " " -t | nl
 }
 
-function uninstall_oh_my_zsh() {
+function uninstall_ru_my_zsh() {
   command env ZSH="$ZSH" sh "$ZSH/tools/uninstall.sh"
 }
 
-function upgrade_oh_my_zsh() {
+function upgrade_ru_my_zsh() {
   echo >&2 "${fg[yellow]}Note: \`$0\` is deprecated. Use \`omz update\` instead.$reset_color"
   omz update
 }
@@ -31,7 +31,7 @@ function open_command() {
   esac
 
   # If a URL is passed, $BROWSER might be set to a local browser within SSH.
-  # See https://github.com/ohmyzsh/ohmyzsh/issues/11098
+  # See https://github.com/lightair/rumyzsh/issues/11098
   if [[ -n "$BROWSER" && "$1" = (http|https)://* ]]; then
     "$BROWSER" "$@"
     return

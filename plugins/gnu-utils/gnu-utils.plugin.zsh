@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 #          FILE:  gnu-utils.plugin.zsh
-#   DESCRIPTION:  oh-my-zsh plugin file.
+#   DESCRIPTION:  ru-my-zsh plugin file.
 #        AUTHOR:  Sorin Ionescu (sorin.ionescu@gmail.com)
 #       VERSION:  1.0.0
 # ------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ add-zsh-hook preexec __gnu_utils_preexec
 
 # lib/theme-and-appearance.zsh sets the alias for ls not knowing that
 # we'll be using GNU ls. We'll reset this to use GNU ls --color.
-# See https://github.com/ohmyzsh/ohmyzsh/issues/11503
+# See https://github.com/lightair/rumyzsh/issues/11503
 #
 # The ls alias might look like:
 # - ls='ls -G'

@@ -25,10 +25,10 @@ function _omz {
     'changelog:Print the changelog'
     'help:Usage information'
     'plugin:Manage plugins'
-    'pr:Manage Oh My Zsh Pull Requests'
+    'pr:Manage Ru My Zsh Pull Requests'
     'reload:Reload the current zsh session'
     'theme:Manage themes'
-    'update:Update Oh My Zsh'
+    'update:Update Ru My Zsh'
     'version:Show the version'
   )
 
@@ -166,10 +166,10 @@ Available commands:
   help                Print this help message
   changelog           Print the changelog
   plugin <command>    Manage plugins
-  pr     <command>    Manage Oh My Zsh Pull Requests
+  pr     <command>    Manage Ru My Zsh Pull Requests
   reload              Reload the current zsh session
   theme  <command>    Manage themes
-  update              Update Oh My Zsh
+  update              Update Ru My Zsh
   version             Show the version
 
 EOF
@@ -205,7 +205,7 @@ Available commands:
   disable <plugin> Disable plugin(s)
   enable <plugin>  Enable plugin(s)
   info <plugin>    Get information of a plugin
-  list             List all available Oh My Zsh plugins
+  list             List all available Ru My Zsh plugins
   load <plugin>    Load plugin(s)
 
 EOF
@@ -490,7 +490,7 @@ Usage: ${(j: :)${(s.::.)0#_}} <command> [options]
 
 Available commands:
 
-  clean                       Delete all PR branches (ohmyzsh/pull-*)
+  clean                       Delete all PR branches (rumyzsh/pull-*)
   test <PR_number_or_URL>     Fetch PR #NUMBER and rebase against master
 
 EOF
@@ -511,7 +511,7 @@ function _omz::pr::clean {
     # Check if there are PR branches
     local fmt branches
     fmt="%(color:bold blue)%(align:18,right)%(refname:short)%(end)%(color:reset) %(color:dim bold red)%(objectname:short)%(color:reset) %(color:yellow)%(contents:subject)"
-    branches="$(command git for-each-ref --sort=-committerdate --color --format="$fmt" "refs/heads/ohmyzsh/pull-*")"
+    branches="$(command git for-each-ref --sort=-committerdate --color --format="$fmt" "refs/heads/rumyzsh/pull-*")"
 
     # Exit if there are no PR branches
     if [[ -z "$branches" ]]; then
@@ -526,8 +526,8 @@ function _omz::pr::clean {
     # Only proceed if the answer is a valid yes option
     [[ "$REPLY" != [yY$'\n'] ]] && return
 
-    _omz::log info "removing all Oh My Zsh Pull Request branches..."
-    command git branch --list 'ohmyzsh/pull-*' | while read branch; do
+    _omz::log info "removing all Ru My Zsh Pull Request branches..."
+    command git branch --list 'rumyzsh/pull-*' | while read branch; do
       command git branch -D "$branch"
     done
   )
@@ -553,28 +553,28 @@ function _omz::pr::test {
   }
 
 
-  # Fetch PR onto ohmyzsh/pull-<PR_NUMBER> branch and rebase against master
+  # Fetch PR onto rumyzsh/pull-<PR_NUMBER> branch and rebase against master
   # If any of these operations fail, undo the changes made
   (
     set -e
     builtin cd -q "$ZSH"
 
-    # Get the ohmyzsh git remote
+    # Get the rumyzsh git remote
     command git remote -v | while read remote url _; do
       case "$url" in
-      https://github.com/ohmyzsh/ohmyzsh(|.git)) found=1; break ;;
-      git@github.com:ohmyzsh/ohmyzsh(|.git)) found=1; break ;;
+      https://github.com/lightair/rumyzsh(|.git)) found=1; break ;;
+      git@github.com:lightair/rumyzsh(|.git)) found=1; break ;;
       esac
     done
 
     (( $found )) || {
-      _omz::log error "could not found the ohmyzsh git remote. Aborting..."
+      _omz::log error "could not found the rumyzsh git remote. Aborting..."
       return 1
     }
 
     # Fetch pull request head
-    _omz::log info "fetching PR #$1 to ohmyzsh/pull-$1..."
-    command git fetch -f "$remote" refs/pull/$1/head:ohmyzsh/pull-$1 || {
+    _omz::log info "fetching PR #$1 to rumyzsh/pull-$1..."
+    command git fetch -f "$remote" refs/pull/$1/head:rumyzsh/pull-$1 || {
       _omz::log error "error when trying to fetch PR #$1."
       return 1
     }
@@ -590,7 +590,7 @@ function _omz::pr::test {
       [[ $ret -ne 129 ]] || gpgsign=$(command git config commit.gpgsign 2>/dev/null)
       command git config commit.gpgsign false
 
-      command git rebase master ohmyzsh/pull-$1 || {
+      command git rebase master rumyzsh/pull-$1 || {
         command git rebase --abort &>/dev/null
         _omz::log warn "could not rebase PR #$1 on top of master."
         _omz::log warn "you might not see the latest stable changes."
@@ -647,7 +647,7 @@ Usage: ${(j: :)${(s.::.)0#_}} <command> [options]
 
 Available commands:
 
-  list            List all available Oh My Zsh themes
+  list            List all available Ru My Zsh themes
   set <theme>     Set a theme in your .zshrc file
   use <theme>     Load a theme
 

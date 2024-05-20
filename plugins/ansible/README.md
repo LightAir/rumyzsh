@@ -30,4 +30,4 @@ plugins=(... ansible)
 
 ### [Deepankumar](https://github.com/deepan10)
 
-[https://github.com/deepan10/oh-my-zsh/tree/features/ansible-plugin](https://github.com/deepan10/oh-my-zsh/tree/features/ansible-plugin)
+[https://github.com/deepan10/ru-my-zsh/tree/features/ansible-plugin](https://github.com/deepan10/ru-my-zsh/tree/features/ansible-plugin)

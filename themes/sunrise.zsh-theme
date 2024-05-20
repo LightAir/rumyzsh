@@ -1,4 +1,4 @@
-# Sunrise theme for oh-my-zsh
+# Sunrise theme for ru-my-zsh
 # Intended to be used with Solarized: https://ethanschoonover.com/solarized
 
 # Color shortcuts

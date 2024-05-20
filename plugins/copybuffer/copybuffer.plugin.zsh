@@ -5,7 +5,7 @@ copybuffer () {
   if builtin which clipcopy &>/dev/null; then
     printf "%s" "$BUFFER" | clipcopy
   else
-    zle -M "clipcopy not found. Please make sure you have Oh My Zsh installed correctly."
+    zle -M "clipcopy not found. Please make sure you have Ru My Zsh installed correctly."
   fi
 }
 

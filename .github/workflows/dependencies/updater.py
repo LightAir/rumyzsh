@@ -13,7 +13,7 @@ import yaml
 from semver import Version
 
 # Get TMP_DIR variable from environment
-TMP_DIR = os.path.join(os.environ.get("TMP_DIR", "/tmp"), "ohmyzsh")
+TMP_DIR = os.path.join(os.environ.get("TMP_DIR", "/tmp"), "rumyzsh")
 # Relative path to dependencies.yml file
 DEPS_YAML_FILE = ".github/dependencies.yml"
 # Dry run flag

@@ -41,10 +41,10 @@ function current_epoch() {
 
 function is_update_available() {
   local branch
-  branch=${"$(builtin cd -q "$ZSH"; git config --local oh-my-zsh.branch)":-master}
+  branch=${"$(builtin cd -q "$ZSH"; git config --local ru-my-zsh.branch)":-master}
 
   local remote remote_url remote_repo
-  remote=${"$(builtin cd -q "$ZSH"; git config --local oh-my-zsh.remote)":-origin}
+  remote=${"$(builtin cd -q "$ZSH"; git config --local ru-my-zsh.remote)":-origin}
   remote_url=$(builtin cd -q "$ZSH"; git config remote.$remote.url)
 
   local repo
@@ -58,7 +58,7 @@ function is_update_available() {
   esac
 
   # If the remote repo is not the official one, let's assume there are updates available
-  [[ "$repo" = ohmyzsh/ohmyzsh ]] || return 0
+  [[ "$repo" = lightair/rumyzsh ]] || return 0
   local api_url="https://api.github.com/repos/${repo}/commits/${branch}"
 
   # Get local HEAD. If this fails assume there are updates
@@ -108,7 +108,7 @@ ERROR='${error//\'/’}'
 EOD
 }
 
-function update_ohmyzsh() {
+function update_rumyzsh() {
   local verbose_mode
   zstyle -s ':omz:update' verbose verbose_mode || verbose_mode=default
 
@@ -182,7 +182,7 @@ function handle_update() {
     trap "
       ret=\$?
       unset update_mode
-      unset -f current_epoch is_update_available update_last_updated_file update_ohmyzsh handle_update 2>/dev/null
+      unset -f current_epoch is_update_available update_last_updated_file update_rumyzsh handle_update 2>/dev/null
       command rm -rf '$ZSH/log/update.lock'
       return \$ret
     " EXIT INT QUIT
@@ -200,9 +200,9 @@ function handle_update() {
       return
     fi
 
-    # Test if Oh My Zsh directory is a git repository
+    # Test if Ru My Zsh directory is a git repository
     if ! (builtin cd -q "$ZSH" && LANG= git rev-parse &>/dev/null); then
-      echo >&2 "[oh-my-zsh] Can't update: not a git repository."
+      echo >&2 "[ru-my-zsh] Can't update: not a git repository."
       return
     fi
 
@@ -215,30 +215,30 @@ function handle_update() {
     # If in reminder mode or user has typed input, show reminder and exit
     if [[ "$update_mode" = reminder ]] || { [[ "$update_mode" != background-alpha ]] && has_typed_input }; then
       printf '\r\e[0K' # move cursor to first column and clear whole line
-      echo "[oh-my-zsh] It's time to update! You can do that by running \`omz update\`"
+      echo "[ru-my-zsh] It's time to update! You can do that by running \`omz update\`"
       return 0
     fi
 
     # Don't ask for confirmation before updating if in auto mode
     if [[ "$update_mode" = (auto|background-alpha) ]]; then
-      update_ohmyzsh
+      update_rumyzsh
       return $?
     fi
 
     # Ask for confirmation and only update on 'y', 'Y' or Enter
     # Otherwise just show a reminder for how to update
-    echo -n "[oh-my-zsh] Would you like to update? [Y/n] "
+    echo -n "[ru-my-zsh] Would you like to update? [Y/n] "
     read -r -k 1 option
     [[ "$option" = $'\n' ]] || echo
     case "$option" in
-      [yY$'\n']) update_ohmyzsh ;;
+      [yY$'\n']) update_rumyzsh ;;
       [nN]) update_last_updated_file ;&
-      *) echo "[oh-my-zsh] You can update manually by running \`omz update\`" ;;
+      *) echo "[ru-my-zsh] You can update manually by running \`omz update\`" ;;
     esac
   }
 
   unset update_mode
-  unset -f current_epoch is_update_available update_last_updated_file update_ohmyzsh handle_update
+  unset -f current_epoch is_update_available update_last_updated_file update_rumyzsh handle_update
 }
 
 case "$update_mode" in
@@ -271,10 +271,10 @@ case "$update_mode" in
         fi
 
         if [[ "$EXIT_STATUS" -eq 0 ]]; then
-          print -P "\n%F{green}[oh-my-zsh] Update successful.%f"
+          print -P "\n%F{green}[ru-my-zsh] Update successful.%f"
           return 0
         elif [[ "$EXIT_STATUS" -ne 0 ]]; then
-          print -P "\n%F{red}[oh-my-zsh] There was an error updating:%f"
+          print -P "\n%F{red}[ru-my-zsh] There was an error updating:%f"
           printf "\n${fg[yellow]}%s${reset_color}" "$ERROR"
           return 0
         fi

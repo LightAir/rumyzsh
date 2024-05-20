@@ -7,7 +7,7 @@ omz_f() {
 # If stdout is not a terminal ignore all formatting
 [ -t 1 ] || omz_f() { :; }
 
-# Protect against non-zsh execution of Oh My Zsh (use POSIX syntax here)
+# Protect against non-zsh execution of Ru My Zsh (use POSIX syntax here)
 [ -n "$ZSH_VERSION" ] || {
   omz_ptree() {
     # Get process tree of the current process
@@ -28,7 +28,7 @@ omz_f() {
 
   {
     shell=$(ps -o pid,comm | awk "\$1 == $$ { print \$2 }")
-    printf "$(omz_f 1 31)Error:$(omz_f 22) Oh My Zsh can't be loaded from: $(omz_f 1)${shell}$(omz_f 22). "
+    printf "$(omz_f 1 31)Error:$(omz_f 22) Ru My Zsh can't be loaded from: $(omz_f 1)${shell}$(omz_f 22). "
     printf "You need to run $(omz_f 1)zsh$(omz_f 22) instead.$(omz_f 0)\n"
     printf "$(omz_f 33)Here's the process tree:$(omz_f 22)\n\n"
     omz_ptree
@@ -39,9 +39,9 @@ omz_f() {
 }
 
 # Check if in emulation mode, if so early return
-# https://github.com/ohmyzsh/ohmyzsh/issues/11686
+# https://github.com/lightair/rumyzsh/issues/11686
 [[ "$(emulate)" = zsh ]] || {
-  printf "$(omz_f 1 31)Error:$(omz_f 22) Oh My Zsh can't be loaded in \`$(emulate)\` emulation mode.$(omz_f 0)\n" >&2
+  printf "$(omz_f 1 31)Error:$(omz_f 22) Ru My Zsh can't be loaded in \`$(emulate)\` emulation mode.$(omz_f 0)\n" >&2
   return 1
 }
 
@@ -58,7 +58,7 @@ fi
 
 # Make sure $ZSH_CACHE_DIR is writable, otherwise use a directory in $HOME
 if [[ ! -w "$ZSH_CACHE_DIR" ]]; then
-  ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+  ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ru-my-zsh"
 fi
 
 # Create cache and completions dir and add to $fpath
@@ -68,7 +68,7 @@ mkdir -p "$ZSH_CACHE_DIR/completions"
 # Check for updates on initial load...
 source "$ZSH/tools/check_for_upgrade.sh"
 
-# Initializes Oh My Zsh
+# Initializes Ru My Zsh
 
 # add a function path
 fpath=("$ZSH/functions" "$ZSH/completions" $fpath)
@@ -97,7 +97,7 @@ for plugin ($plugins); do
   elif is_plugin "$ZSH" "$plugin"; then
     fpath=("$ZSH/plugins/$plugin" $fpath)
   else
-    echo "[oh-my-zsh] plugin '$plugin' not found"
+    echo "[ru-my-zsh] plugin '$plugin' not found"
   fi
 done
 
@@ -140,7 +140,7 @@ fi
 if (( $zcompdump_refresh )) \
   || ! command grep -q -Fx "$zcompdump_revision" "$ZSH_COMPDUMP" 2>/dev/null; then
   # Use `tee` in case the $ZSH_COMPDUMP filename is invalid, to silence the error
-  # See https://github.com/ohmyzsh/ohmyzsh/commit/dd1a7269#commitcomment-39003489
+  # See https://github.com/lightair/rumyzsh/commit/dd1a7269#commitcomment-39003489
   tee -a "$ZSH_COMPDUMP" &>/dev/null <<EOF
 
 $zcompdump_revision
@@ -196,7 +196,7 @@ _omz_source() {
   fi
 }
 
-# Load all of the lib files in ~/oh-my-zsh/lib that end in .zsh
+# Load all of the lib files in ~/ru-my-zsh/lib that end in .zsh
 # TIP: Add files you don't want in git to .gitignore
 for lib_file ("$ZSH"/lib/*.zsh); do
   _omz_source "lib/${lib_file:t}"
@@ -230,7 +230,7 @@ if [[ -n "$ZSH_THEME" ]]; then
   elif is_theme "$ZSH/themes" "$ZSH_THEME"; then
     source "$ZSH/themes/$ZSH_THEME.zsh-theme"
   else
-    echo "[oh-my-zsh] theme '$ZSH_THEME' not found"
+    echo "[ru-my-zsh] theme '$ZSH_THEME' not found"
   fi
 fi
 

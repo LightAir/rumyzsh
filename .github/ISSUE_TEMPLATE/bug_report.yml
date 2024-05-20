@@ -1,12 +1,12 @@
 name: Report a bug
-description: Report a bug that isn't caused by Oh My Zsh. If unsure, use this form
+description: Report a bug that isn't caused by Ru My Zsh. If unsure, use this form
 body:
   - type: markdown
     attributes:
       value: |
         ## Self Check
-        - Look for similar errors in existing [GitHub Issues](https://github.com/ohmyzsh/ohmyzsh/issues?q=is%3Aissue) (open or closed).
-        - Try reaching out on the [Discord server](https://discord.gg/ohmyzsh) for help.
+        - Look for similar errors in existing
+        - Try reaching out on the
   - type: textarea
     validations:
       required: true

@@ -417,7 +417,7 @@ for old_alias new_alias (
   gupomi  gpromi
 ); do
   aliases[$old_alias]="
-    print -Pu2 \"%F{yellow}[oh-my-zsh] '%F{red}${old_alias}%F{yellow}' is a deprecated alias, using '%F{green}${new_alias}%F{yellow}' instead.%f\"
+    print -Pu2 \"%F{yellow}[ru-my-zsh] '%F{red}${old_alias}%F{yellow}' is a deprecated alias, using '%F{green}${new_alias}%F{yellow}' instead.%f\"
     $new_alias"
 done
 unset old_alias new_alias
