@@ -147,8 +147,8 @@ esac
 function omz_termsupport_cwd {
   # Percent-encode the host and path names.
   local URL_HOST URL_PATH
-  URL_HOST="$(omz_urlencode -P $HOST)" || return 1
-  URL_PATH="$(omz_urlencode -P $PWD)" || return 1
+  URL_HOST="$(rmz_urlencode -P $HOST)" || return 1
+  URL_PATH="$(rmz_urlencode -P $PWD)" || return 1
 
   # Konsole errors if the HOST is provided
   [[ -z "$KONSOLE_PROFILE_NAME" && -z "$KONSOLE_DBUS_SESSION"  ]] || URL_HOST=""

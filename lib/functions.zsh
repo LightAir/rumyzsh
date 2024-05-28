@@ -9,7 +9,7 @@ function uninstall_ru_my_zsh() {
 }
 
 function upgrade_ru_my_zsh() {
-  echo >&2 "${fg[yellow]}Note: \`$0\` is deprecated. Use \`omz update\` instead.$reset_color"
+  echo >&2 "${fg[yellow]}Note: \`$0\` is deprecated. Use \`rmz update\` instead.$reset_color"
   omz update
 }
 
@@ -151,14 +151,14 @@ zmodload zsh/langinfo
 # Returns nonzero if encoding failed.
 #
 # Usage:
-#  omz_urlencode [-r] [-m] [-P] <string> [<string> ...]
+#  rmz_urlencode [-r] [-m] [-P] <string> [<string> ...]
 #
 #    -r causes reserved characters (;/?:@&=+$,) to be escaped
 #
 #    -m causes "mark" characters (_.!~*''()-) to be escaped
 #
 #    -P causes spaces to be encoded as '%20' instead of '+'
-function omz_urlencode() {
+function rmz_urlencode() {
   emulate -L zsh
   local -a opts
   zparseopts -D -E -a opts r m P
@@ -233,8 +233,8 @@ function omz_urlencode() {
 # Returns nonzero if encoding failed.
 #
 # Usage:
-#   omz_urldecode <urlstring>  - prints decoded string followed by a newline
-function omz_urldecode {
+#   rmz_urldecode <urlstring>  - prints decoded string followed by a newline
+function rmz_urldecode {
   emulate -L zsh
   local encoded_url=$1
 

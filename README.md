@@ -1,10 +1,6 @@
 Ru My Zsh is an open source, community-driven framework for managing your [zsh](https://www.zsh.org/) configuration.
 
-Sounds boring. Let's try again.
-
-Once installed, your terminal shell will become the talk of the town _or your money back!_ With each keystroke in your command prompt, you'll take advantage of the hundreds of powerful plugins and beautiful themes. Strangers will come up to you in cafés and ask you, _"that is amazing! are you some sort of genius?"_
-
-Finally, you'll begin to get the sort of attention that you have always felt you deserved. ...or maybe you'll use the time that you're saving to start flossing more often. 😬
+🎉 And no rainbow flags or anything like that! 🎉
 
 <details>
 <summary>Table of Contents</summary>
@@ -54,7 +50,6 @@ Finally, you'll begin to get the sort of attention that you have always felt you
 | :------------- | :-----: |
 | Android        |   ✅    |
 | freeBSD        |   ✅    |
-| LCARS          |   🛸    |
 | Linux          |   ✅    |
 | macOS          |   ✅    |
 | OS/2 Warp      |   ❌    |
@@ -79,6 +74,8 @@ Ru My Zsh is installed by running one of the following commands in your terminal
 
 Alternatively, the installer is also mirrored outside GitHub. Using this URL instead may be required if you're in a country like India or China, that blocks `raw.githubusercontent.com`:
 
+The method doesn't work yet
+
 | Method    | Command                                                                                           |
 | :-------- | :------------------------------------------------------------------------------------------------ |
 | **curl**  | `sh -c "$(curl -fsSL https://install.softroot.ru/)"`                                                 |
@@ -98,7 +95,7 @@ wget https://raw.githubusercontent.com/lightair/rumyzsh/master/tools/install.sh
 sh install.sh
 ```
 
-If the above URL times out or otherwise fails, you may have to substitute the URL for `https://install.softroot.ru/` to be able to get the script.
+If the above URL times out or otherwise fails, you may have to substitute the URL for `https://install.softroot.ru/` (The method doesn't work yet) to be able to get the script.
 
 ## Using Ru My Zsh
 

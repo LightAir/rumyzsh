@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-function omz {
+function rmz {
   [[ $# -gt 0 ]] || {
-    _omz::help
+    _rmz::help
     return 1
   }
 
@@ -10,16 +10,16 @@ function omz {
   shift
 
   # Subcommand functions start with _ so that they don't
-  # appear as completion entries when looking for `omz`
-  (( ${+functions[_omz::$command]} )) || {
-    _omz::help
+  # appear as completion entries when looking for `rmz`
+  (( ${+functions[_rmz::$command]} )) || {
+    _rmz::help
     return 1
   }
 
-  _omz::$command "$@"
+  _rmz::$command "$@"
 }
 
-function _omz {
+function _rmz {
   local -a cmds subcmds
   cmds=(
     'changelog:Print the changelog'
@@ -107,16 +107,16 @@ function _omz {
 
 # If run from a script, do not set the completion function
 if (( ${+functions[compdef]} )); then
-  compdef _omz omz
+  compdef _rmz rmz
 fi
 
 ## Utility functions
 
-function _omz::confirm {
+function _rmz::confirm {
   # If question supplied, ask it before reading the answer
   # NOTE: uses the logname of the caller function
   if [[ -n "$1" ]]; then
-    _omz::log prompt "$1" "${${functrace[1]#_}%:*}"
+    _rmz::log prompt "$1" "${${functrace[1]#_}%:*}"
   fi
 
   # Read one character
@@ -128,7 +128,7 @@ function _omz::confirm {
   fi
 }
 
-function _omz::log {
+function _rmz::log {
   # if promptsubst is set, a message with `` or $()
   # will be run even if quoted due to `print -P`
   setopt localoptions nopromptsubst
@@ -141,7 +141,7 @@ function _omz::log {
   local logname=${3:-${${functrace[1]#_}%:*}}
 
   # Don't print anything if debug is not active
-  if [[ $logtype = debug && -z $_OMZ_DEBUG ]]; then
+  if [[ $logtype = debug && -z $_RMZ_DEBUG ]]; then
     return
   fi
 
@@ -157,9 +157,9 @@ function _omz::log {
 
 ## User-facing commands
 
-function _omz::help {
+function _rmz::help {
   cat >&2 <<EOF
-Usage: omz <command> [options]
+Usage: rmz <command> [options]
 
 Available commands:
 
@@ -175,7 +175,7 @@ Available commands:
 EOF
 }
 
-function _omz::changelog {
+function _rmz::changelog {
   local version=${1:-HEAD} format=${3:-"--text"}
 
   if (
@@ -195,7 +195,7 @@ EOF
   "$ZSH/tools/changelog.sh" "$version" "${2:-}" "$format"
 }
 
-function _omz::plugin {
+function _rmz::plugin {
   (( $# > 0 && $+functions[$0::$1] )) || {
     cat >&2 <<EOF
 Usage: ${(j: :)${(s.::.)0#_}} <command> [options]
@@ -218,7 +218,7 @@ EOF
   $0::$command "$@"
 }
 
-function _omz::plugin::disable {
+function _rmz::plugin::disable {
   if [[ -z "$1" ]]; then
     echo >&2 "Usage: ${(j: :)${(s.::.)0#_}} <plugin> [...]"
     return 1
@@ -228,7 +228,7 @@ function _omz::plugin::disable {
   local -a dis_plugins
   for plugin in "$@"; do
     if [[ ${plugins[(Ie)$plugin]} -eq 0 ]]; then
-      _omz::log warn "plugin '$plugin' is not enabled."
+      _rmz::log warn "plugin '$plugin' is not enabled."
       continue
     fi
     dis_plugins+=("$plugin")
@@ -296,25 +296,25 @@ multi == 1 && length(\$0) > 0 {
   # Exit if the new .zshrc file wasn't created correctly
   [[ $? -eq 0 ]] || {
     local ret=$?
-    _omz::log error "error disabling plugins."
+    _rmz::log error "error disabling plugins."
     return $ret
   }
 
   # Exit if the new .zshrc file has syntax errors
   if ! command zsh -n "$zdot/.zshrc"; then
-    _omz::log error "broken syntax in '"${zdot/#$HOME/\~}/.zshrc"'. Rolling back changes..."
+    _rmz::log error "broken syntax in '"${zdot/#$HOME/\~}/.zshrc"'. Rolling back changes..."
     command mv -f "$zdot/.zshrc.bck" "$zshrc"
     return 1
   fi
 
   # Restart the zsh session if there were no errors
-  _omz::log info "plugins disabled: ${(j:, :)dis_plugins}."
+  _rmz::log info "plugins disabled: ${(j:, :)dis_plugins}."
 
   # Only reload zsh if run in an interactive session
-  [[ ! -o interactive ]] || _omz::reload
+  [[ ! -o interactive ]] || _rmz::reload
 }
 
-function _omz::plugin::enable {
+function _rmz::plugin::enable {
   if [[ -z "$1" ]]; then
     echo >&2 "Usage: ${(j: :)${(s.::.)0#_}} <plugin> [...]"
     return 1
@@ -324,7 +324,7 @@ function _omz::plugin::enable {
   local -a add_plugins
   for plugin in "$@"; do
     if [[ ${plugins[(Ie)$plugin]} -ne 0 ]]; then
-      _omz::log warn "plugin '$plugin' is already enabled."
+      _rmz::log warn "plugin '$plugin' is already enabled."
       continue
     fi
     add_plugins+=("$plugin")
@@ -370,25 +370,25 @@ multi == 1 && /^[^#]*\)/ {
   # Exit if the new .zshrc file wasn't created correctly
   [[ $? -eq 0 ]] || {
     local ret=$?
-    _omz::log error "error enabling plugins."
+    _rmz::log error "error enabling plugins."
     return $ret
   }
 
   # Exit if the new .zshrc file has syntax errors
   if ! command zsh -n "$zdot/.zshrc"; then
-    _omz::log error "broken syntax in '"${zdot/#$HOME/\~}/.zshrc"'. Rolling back changes..."
+    _rmz::log error "broken syntax in '"${zdot/#$HOME/\~}/.zshrc"'. Rolling back changes..."
     command mv -f "$zdot/.zshrc.bck" "$zshrc"
     return 1
   fi
 
   # Restart the zsh session if there were no errors
-  _omz::log info "plugins enabled: ${(j:, :)add_plugins}."
+  _rmz::log info "plugins enabled: ${(j:, :)add_plugins}."
 
   # Only reload zsh if run in an interactive session
-  [[ ! -o interactive ]] || _omz::reload
+  [[ ! -o interactive ]] || _rmz::reload
 }
 
-function _omz::plugin::info {
+function _rmz::plugin::info {
   if [[ -z "$1" ]]; then
     echo >&2 "Usage: ${(j: :)${(s.::.)0#_}} <plugin>"
     return 1
@@ -403,15 +403,15 @@ function _omz::plugin::info {
   done
 
   if [[ -d "$ZSH_CUSTOM/plugins/$1" || -d "$ZSH/plugins/$1" ]]; then
-    _omz::log error "the '$1' plugin doesn't have a README file"
+    _rmz::log error "the '$1' plugin doesn't have a README file"
   else
-    _omz::log error "'$1' plugin not found"
+    _rmz::log error "'$1' plugin not found"
   fi
 
   return 1
 }
 
-function _omz::plugin::list {
+function _rmz::plugin::list {
   local -a custom_plugins builtin_plugins
   custom_plugins=("$ZSH_CUSTOM"/plugins/*(-/N:t))
   builtin_plugins=("$ZSH"/plugins/*(-/N:t))
@@ -435,7 +435,7 @@ function _omz::plugin::list {
   fi
 }
 
-function _omz::plugin::load {
+function _rmz::plugin::load {
   if [[ -z "$1" ]]; then
     echo >&2 "Usage: ${(j: :)${(s.::.)0#_}} <plugin> [...]"
     return 1
@@ -448,13 +448,13 @@ function _omz::plugin::load {
     elif [[ -d "$ZSH/plugins/$plugin" ]]; then
       base="$ZSH/plugins/$plugin"
     else
-      _omz::log warn "plugin '$plugin' not found"
+      _rmz::log warn "plugin '$plugin' not found"
       continue
     fi
 
     # Check if its a valid plugin
     if [[ ! -f "$base/_$plugin" && ! -f "$base/$plugin.plugin.zsh" ]]; then
-      _omz::log warn "'$plugin' is not a valid plugin"
+      _rmz::log warn "'$plugin' is not a valid plugin"
       continue
     # It is a valid plugin, add its directory to $fpath unless it is already there
     elif (( ! ${fpath[(Ie)$base]} )); then
@@ -483,7 +483,7 @@ function _omz::plugin::load {
   fi
 }
 
-function _omz::pr {
+function _rmz::pr {
   (( $# > 0 && $+functions[$0::$1] )) || {
     cat >&2 <<EOF
 Usage: ${(j: :)${(s.::.)0#_}} <command> [options]
@@ -503,7 +503,7 @@ EOF
   $0::$command "$@"
 }
 
-function _omz::pr::clean {
+function _rmz::pr::clean {
   (
     set -e
     builtin cd -q "$ZSH"
@@ -515,25 +515,25 @@ function _omz::pr::clean {
 
     # Exit if there are no PR branches
     if [[ -z "$branches" ]]; then
-      _omz::log info "there are no Pull Request branches to remove."
+      _rmz::log info "there are no Pull Request branches to remove."
       return
     fi
 
     # Print found PR branches
     echo "$branches\n"
     # Confirm before removing the branches
-    _omz::confirm "do you want remove these Pull Request branches? [Y/n] "
+    _rmz::confirm "do you want remove these Pull Request branches? [Y/n] "
     # Only proceed if the answer is a valid yes option
     [[ "$REPLY" != [yY$'\n'] ]] && return
 
-    _omz::log info "removing all Ru My Zsh Pull Request branches..."
+    _rmz::log info "removing all Ru My Zsh Pull Request branches..."
     command git branch --list 'rumyzsh/pull-*' | while read branch; do
       command git branch -D "$branch"
     done
   )
 }
 
-function _omz::pr::test {
+function _rmz::pr::test {
   # Allow $1 to be a URL to the pull request
   if [[ "$1" = https://* ]]; then
     1="${1:t}"
@@ -548,7 +548,7 @@ function _omz::pr::test {
   # Save current git HEAD
   local branch
   branch=$(builtin cd -q "$ZSH"; git symbolic-ref --short HEAD) || {
-    _omz::log error "error when getting the current git branch. Aborting..."
+    _rmz::log error "error when getting the current git branch. Aborting..."
     return 1
   }
 
@@ -568,19 +568,19 @@ function _omz::pr::test {
     done
 
     (( $found )) || {
-      _omz::log error "could not found the rumyzsh git remote. Aborting..."
+      _rmz::log error "could not found the rumyzsh git remote. Aborting..."
       return 1
     }
 
     # Fetch pull request head
-    _omz::log info "fetching PR #$1 to rumyzsh/pull-$1..."
+    _rmz::log info "fetching PR #$1 to rumyzsh/pull-$1..."
     command git fetch -f "$remote" refs/pull/$1/head:rumyzsh/pull-$1 || {
-      _omz::log error "error when trying to fetch PR #$1."
+      _rmz::log error "error when trying to fetch PR #$1."
       return 1
     }
 
     # Rebase pull request branch against the current master
-    _omz::log info "rebasing PR #$1..."
+    _rmz::log info "rebasing PR #$1..."
     local ret gpgsign
     {
       # Back up commit.gpgsign setting: use --local to get the current repository
@@ -592,9 +592,9 @@ function _omz::pr::test {
 
       command git rebase master rumyzsh/pull-$1 || {
         command git rebase --abort &>/dev/null
-        _omz::log warn "could not rebase PR #$1 on top of master."
-        _omz::log warn "you might not see the latest stable changes."
-        _omz::log info "run \`zsh\` to test the changes."
+        _rmz::log warn "could not rebase PR #$1 on top of master."
+        _rmz::log warn "you might not see the latest stable changes."
+        _rmz::log info "run \`zsh\` to test the changes."
         return 1
       }
     } always {
@@ -604,18 +604,18 @@ function _omz::pr::test {
       esac
     }
 
-    _omz::log info "fetch of PR #${1} successful."
+    _rmz::log info "fetch of PR #${1} successful."
   )
 
   # If there was an error, abort running zsh to test the PR
   [[ $? -eq 0 ]] || return 1
 
   # Run zsh to test the changes
-  _omz::log info "running \`zsh\` to test the changes. Run \`exit\` to go back."
+  _rmz::log info "running \`zsh\` to test the changes. Run \`exit\` to go back."
   command zsh -l
 
   # After testing, go back to the previous HEAD if the user wants
-  _omz::confirm "do you want to go back to the previous branch? [Y/n] "
+  _rmz::confirm "do you want to go back to the previous branch? [Y/n] "
   # Only proceed if the answer is a valid yes option
   [[ "$REPLY" != [yY$'\n'] ]] && return
 
@@ -624,13 +624,13 @@ function _omz::pr::test {
     builtin cd -q "$ZSH"
 
     command git checkout "$branch" -- || {
-      _omz::log error "could not go back to the previous branch ('$branch')."
+      _rmz::log error "could not go back to the previous branch ('$branch')."
       return 1
     }
   )
 }
 
-function _omz::reload {
+function _rmz::reload {
   # Delete current completion cache
   command rm -f $_comp_dumpfile $ZSH_COMPDUMP
 
@@ -640,7 +640,7 @@ function _omz::reload {
   [[ "$zsh" = -* || -o login ]] && exec -l "${zsh#-}" || exec "$zsh"
 }
 
-function _omz::theme {
+function _rmz::theme {
   (( $# > 0 && $+functions[$0::$1] )) || {
     cat >&2 <<EOF
 Usage: ${(j: :)${(s.::.)0#_}} <command> [options]
@@ -661,7 +661,7 @@ EOF
   $0::$command "$@"
 }
 
-function _omz::theme::list {
+function _rmz::theme::list {
   local -a custom_themes builtin_themes
   custom_themes=("$ZSH_CUSTOM"/**/*.zsh-theme(-.N:r:gs:"$ZSH_CUSTOM"/themes/:::gs:"$ZSH_CUSTOM"/:::))
   builtin_themes=("$ZSH"/themes/*.zsh-theme(-.N:t:r))
@@ -691,7 +691,7 @@ function _omz::theme::list {
   print -lac ${(q-)builtin_themes}
 }
 
-function _omz::theme::set {
+function _rmz::theme::set {
   if [[ -z "$1" ]]; then
     echo >&2 "Usage: ${(j: :)${(s.::.)0#_}} <theme>"
     return 1
@@ -701,7 +701,7 @@ function _omz::theme::set {
   if [[ ! -f "$ZSH_CUSTOM/$1.zsh-theme" ]] \
     && [[ ! -f "$ZSH_CUSTOM/themes/$1.zsh-theme" ]] \
     && [[ ! -f "$ZSH/themes/$1.zsh-theme" ]]; then
-    _omz::log error "%B$1%b theme not found"
+    _rmz::log error "%B$1%b theme not found"
     return 1
   fi
 
@@ -709,7 +709,7 @@ function _omz::theme::set {
   local awk_script='
 !set && /^[ \t]*ZSH_THEME=[^#]+.*$/ {
   set=1
-  sub(/^[ \t]*ZSH_THEME=[^#]+.*$/, "ZSH_THEME=\"'$1'\" # set by `omz`")
+  sub(/^[ \t]*ZSH_THEME=[^#]+.*$/, "ZSH_THEME=\"'$1'\" # set by `rmz`")
   print $0
   next
 }
@@ -728,7 +728,7 @@ END {
   || {
     # Prepend ZSH_THEME= line to .zshrc if it doesn't exist
     cat <<EOF
-ZSH_THEME="$1" # set by \`omz\`
+ZSH_THEME="$1" # set by \`rmz\`
 
 EOF
     cat "$zdot/.zshrc"
@@ -739,25 +739,25 @@ EOF
   # Exit if the new .zshrc file wasn't created correctly
   [[ $? -eq 0 ]] || {
     local ret=$?
-    _omz::log error "error setting theme."
+    _rmz::log error "error setting theme."
     return $ret
   }
 
   # Exit if the new .zshrc file has syntax errors
   if ! command zsh -n "$zdot/.zshrc"; then
-    _omz::log error "broken syntax in '"${zdot/#$HOME/\~}/.zshrc"'. Rolling back changes..."
+    _rmz::log error "broken syntax in '"${zdot/#$HOME/\~}/.zshrc"'. Rolling back changes..."
     command mv -f "$zdot/.zshrc.bck" "$zshrc"
     return 1
   fi
 
   # Restart the zsh session if there were no errors
-  _omz::log info "'$1' theme set correctly."
+  _rmz::log info "'$1' theme set correctly."
 
   # Only reload zsh if run in an interactive session
-  [[ ! -o interactive ]] || _omz::reload
+  [[ ! -o interactive ]] || _rmz::reload
 }
 
-function _omz::theme::use {
+function _rmz::theme::use {
   if [[ -z "$1" ]]; then
     echo >&2 "Usage: ${(j: :)${(s.::.)0#_}} <theme>"
     return 1
@@ -771,7 +771,7 @@ function _omz::theme::use {
   elif [[ -f "$ZSH/themes/$1.zsh-theme" ]]; then
     source "$ZSH/themes/$1.zsh-theme"
   else
-    _omz::log error "%B$1%b theme not found"
+    _rmz::log error "%B$1%b theme not found"
     return 1
   fi
 
@@ -780,21 +780,21 @@ function _omz::theme::use {
   [[ $1 = random ]] || unset RANDOM_THEME
 }
 
-function _omz::update {
+function _rmz::update {
   # Check if git command is available
   (( $+commands[git] )) || {
-    _omz::log error "git is not installed. Aborting..."
+    _rmz::log error "git is not installed. Aborting..."
     return 1
   }
 
   local last_commit=$(builtin cd -q "$ZSH"; git rev-parse HEAD 2>/dev/null)
   [[ $? -eq 0 ]] || {
-    _omz::log error "\`$ZSH\` is not a git directory. Aborting..."
+    _rmz::log error "\`$ZSH\` is not a git directory. Aborting..."
     return 1
   }
 
   # Run update script
-  zstyle -s ':omz:update' verbose verbose_mode || verbose_mode=default
+  zstyle -s ':rmz:update' verbose verbose_mode || verbose_mode=default
   if [[ "$1" != --unattended ]]; then
     ZSH="$ZSH" command zsh -f "$ZSH/tools/upgrade.sh" -i -v $verbose_mode || return $?
   else
@@ -816,7 +816,7 @@ function _omz::update {
   fi
 }
 
-function _omz::version {
+function _rmz::version {
   (
     builtin cd -q "$ZSH"
 
