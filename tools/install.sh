@@ -240,7 +240,6 @@ fmt_error() {
 setup_color() {
   # Only use colors if connected to a terminal
   if ! is_tty; then
-    FMT_RAINBOW=""
     FMT_RED=""
     FMT_GREEN=""
     FMT_YELLOW=""
@@ -248,28 +247,6 @@ setup_color() {
     FMT_BOLD=""
     FMT_RESET=""
     return
-  fi
-
-  if supports_truecolor; then
-    FMT_RAINBOW="
-      $(printf '\033[38;2;255;0;0m')
-      $(printf '\033[38;2;255;97;0m')
-      $(printf '\033[38;2;247;255;0m')
-      $(printf '\033[38;2;0;255;30m')
-      $(printf '\033[38;2;77;0;255m')
-      $(printf '\033[38;2;168;0;255m')
-      $(printf '\033[38;2;245;0;172m')
-    "
-  else
-    FMT_RAINBOW="
-      $(printf '\033[38;5;196m')
-      $(printf '\033[38;5;202m')
-      $(printf '\033[38;5;226m')
-      $(printf '\033[38;5;082m')
-      $(printf '\033[38;5;021m')
-      $(printf '\033[38;5;093m')
-      $(printf '\033[38;5;163m')
-    "
   fi
 
   FMT_RED=$(printf '\033[31m')
@@ -468,14 +445,16 @@ EOF
   echo
 }
 
-# shellcheck disable=SC2183  # printf string has more %s than arguments ($FMT_RAINBOW expands to multiple arguments)
 print_success() {
-  printf '%s         %s__      %s           %s        %s       %s     %s__   %s\n'
-  printf '%s  ____  %s        %s ____ ___  %s__  __  %s ____  %s_____%s/ /_  %s\n'
-  printf '%s / __ \\%s/ /  \\  %s / __ `__ \\%s/ / / / %s /_  / %s/ ___/%s __ \\ %s\n'
-  printf '%s/ / / /%s / / / %s / / / / / /%s /_/ / %s   / /_%s(__  )%s / / / %s\n'
-  printf '%s\\_ __/%s_/ /_/ %s /_/ /_/ /_/%s\\__, / %s   /___/%s____/%s_/ /_/  %s\n'
-  printf '%s    %s        %s           %s /____/ %s       %s     %s          %s....is now installed!%s\n' $FMT_RESET
+  printf '░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░      ░▒▓██████████████▓▒░░▒▓█▓▒░░▒▓█▓▒░      ░▒▓████████▓▒░░▒▓███████▓▒░▒▓█▓▒░░▒▓█▓▒░\n'
+  printf '░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░\n'
+  printf '░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░           ░▒▓██▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░\n'
+  printf '░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░          ░▒▓██▓▒░   ░▒▓██████▓▒░░▒▓████████▓▒░\n'
+  printf '░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░           ░▒▓██▓▒░           ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░\n'
+  printf '░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░             ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░\n'
+  printf '░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░       ░▒▓█▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓████████▓▒░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░\n'
+  printf '\n'
+  printf 'is now installed!%s\n' $FMT_RESET
   printf '\n'
   printf '\n'
   printf "%s %s %s\n" "Before you scream ${FMT_BOLD}${FMT_YELLOW}Ru My Zsh!${FMT_RESET} look over the" \
